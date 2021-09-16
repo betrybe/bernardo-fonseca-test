@@ -1,6 +1,10 @@
-import React from 'react';
+import React from "react";
 
 class Login extends React.Component {
+  submitCredentialsHandler = () => {
+    console.log("aqui");
+  };
+
   render() {
     return <div>Login</div>;
   }
