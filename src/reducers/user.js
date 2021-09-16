@@ -1,13 +1,7 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 
 const initialState = {
-  user: {
     email: "",
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
 };
 
 const updateObject = (prevObject, update) => {
@@ -20,7 +14,7 @@ const updateObject = (prevObject, update) => {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case "AUTH_SUCCESS":
-      return updateObject(state, { user: { email: action.email } });
+      return updateObject(state,  {email: action.email} );
     default:
       return state;
   }
