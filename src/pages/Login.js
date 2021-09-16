@@ -1,8 +1,20 @@
 import React from "react";
+import { connect } from "react-redux";
+
+import { auth } from "../actions";
 
 class Login extends React.Component {
-  submitCredentialsHandler = () => {
-    console.log("aqui");
+  emailRef = React.createRef();
+  passwordRef = React.createRef();
+
+  submitCredentialsHandler = (event) => {
+    event.preventDefault();
+
+    this.props.auth(
+      this.emailRef.current.value,
+      this.passwordRef.current.value
+    );
+    // this.props.history.push('/carteira');
   };
 
   render() {
@@ -12,7 +24,13 @@ class Login extends React.Component {
         <form onSubmit={this.submitCredentialsHandler}>
           <div>
             <label htmlFor="email">E-mail: </label>
-            <input data-testid="email-input" type="email" id="email" required />
+            <input
+              data-testid="email-input"
+              type="email"
+              id="email"
+              ref={this.emailRef}
+              required
+            />
           </div>
           <div>
             <label data-testid="password-input" htmlFor="password">
@@ -21,9 +39,9 @@ class Login extends React.Component {
             <input
               type="password"
               id="password"
-              required
               minLength="6"
-              maxLength="21"
+              ref={this.passwordRef}
+              required
             />
           </div>
           <button>Entrar</button>
@@ -33,4 +51,10 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    auth: (email, password) => dispatch(auth(email, password)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Login);
