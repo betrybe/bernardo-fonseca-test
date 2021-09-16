@@ -14,13 +14,12 @@ class Login extends React.Component {
       this.emailRef.current.value,
       this.passwordRef.current.value
     );
-    // this.props.history.push('/carteira');
+    this.props.history.push("/carteira");
   };
 
   render() {
     return (
       <div>
-        Login
         <form onSubmit={this.submitCredentialsHandler}>
           <div>
             <label htmlFor="email">E-mail: </label>
