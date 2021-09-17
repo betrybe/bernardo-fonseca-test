@@ -1,7 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import { fetchCurrencyData } from "../actions/index";
+
 class Wallet extends React.Component {
+  componentDidMount() {
+    this.props.fetchCurrencyData();
+  }
+
   showExpenses = (despesas, currency = "BRL") => {
     const despesaTotal = despesas.reduce((total, despesa) => {
       return total + despesa;
@@ -14,7 +20,7 @@ class Wallet extends React.Component {
   };
 
   render() {
-    const { email, despesas } = this.props;
+    const { email, despesas, moedas } = this.props;
 
     return (
       <div>
@@ -70,7 +76,14 @@ const mapStateToProps = (state) => {
   return {
     email: state.user.email,
     despesas: state.wallet.expenses,
+    moedas: state.wallet.currencies,
   };
 };
 
-export default connect(mapStateToProps)(Wallet);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchCurrencyData: () => dispatch(fetchCurrencyData()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

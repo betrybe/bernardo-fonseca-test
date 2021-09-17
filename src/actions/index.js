@@ -6,7 +6,17 @@ export const auth = (email, password, isLoggedIn = true) => {
       type: "AUTH_SUCCESS",
       email,
       password,
-      isLoggedIn
+      isLoggedIn,
     });
+  };
+};
+
+export const fetchCurrencyData = () => {
+  return async (dispatch) => {
+    const response = await fetch("https://economia.awesomeapi.com.br/json/all")
+
+    const data = await response.json()
+  ;
+    dispatch({ type: "FETCH_CURRENCY", currencies: data });
   };
 };
