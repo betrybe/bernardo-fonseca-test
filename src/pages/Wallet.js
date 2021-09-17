@@ -46,6 +46,7 @@ class Wallet extends React.Component {
             Moeda:
             <select name="currency" defaultValue={"BRL"}>
               <option value="BRL">BRL</option>
+              {moedas.map(moeda => <option value={moeda.code}>{moeda.code}</option>)}
             </select>
           </label>
           <label>

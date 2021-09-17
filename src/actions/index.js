@@ -13,10 +13,16 @@ export const auth = (email, password, isLoggedIn = true) => {
 
 export const fetchCurrencyData = () => {
   return async (dispatch) => {
-    const response = await fetch("https://economia.awesomeapi.com.br/json/all")
+    const response = await fetch("https://economia.awesomeapi.com.br/json/all");
 
-    const data = await response.json()
-  ;
-    dispatch({ type: "FETCH_CURRENCY", currencies: data });
+    const data = await response.json();
+
+    const currencies = [];
+
+    for (const [key, value] of Object.entries(data)) {
+      if (key !== "USDT") currencies.push(value);
+    }
+
+    dispatch({ type: "FETCH_CURRENCY", currencies });
   };
 };
