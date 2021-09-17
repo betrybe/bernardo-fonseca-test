@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { fetchCurrencyData, addExpense } from "../actions/index";
+import { fetchCurrencyData, addExpense, deleteExpense } from "../actions/index";
 
 class Wallet extends React.Component {
   valueRef = React.createRef();
@@ -19,15 +19,19 @@ class Wallet extends React.Component {
       return (
         total +
         Number(despesa.value) *
-          Number(despesa.exchangeRates[`${despesa.currency}`].bid)
+          Number(despesa.exchangeRates[`${despesa.currency}`].ask)
       );
     }, 0);
 
-    return despesaTotal.toLocaleString("pt-br", {
+    return despesaTotal.toLocaleString("en-us", {
       style: "currency",
       currency: currency,
     });
   };
+
+  deleteRow = (id) => {
+    this.props.deleteExpense(id);
+  }
 
   submitExpensesHandler = (event) => {
     event.preventDefault();
@@ -121,6 +125,36 @@ class Wallet extends React.Component {
               <th>Editar/Excluir</th>
             </tr>
           </thead>
+          <tbody>
+            {despesas.map((despesa) => (
+              <tr key={despesa.id}>
+                <td>{despesa.description}</td>
+                <td>{despesa.tag}</td>
+                <td>{despesa.method}</td>
+                <td>
+                  {Number(despesa.value).toLocaleString("en-us", {
+                    style: "currency",
+                    currency: despesa.currency,
+                  })}
+                </td>
+                <td>{despesa.currency}</td>
+                <td>{despesa.exchangeRates[`${despesa.currency}`].ask}</td>
+                <th>
+                  {Number(
+                    despesa.value *
+                      despesa.exchangeRates[`${despesa.currency}`].ask
+                  ).toLocaleString("en-us", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </th>
+                <td>BRL</td>
+                <td>
+                  <button data-testid="delete-btn" onClick={()=>{this.deleteRow(despesa.id)}}>Excluir</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     );
@@ -139,6 +173,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchCurrencyData: () => dispatch(fetchCurrencyData()),
     addExpense: (expenseData) => dispatch(addExpense(expenseData)),
+    deleteExpense: id => dispatch(deleteExpense(id))
   };
 };
 

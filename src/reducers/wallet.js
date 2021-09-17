@@ -16,6 +16,15 @@ const walletReducer = (state = initialState, action) => {
         ...state,
         expenses: state.expenses.concat({...action.expense, id: state.expenses.length})
       }
+      case "DELETE_EXPENSE":
+        return {
+          ...state,
+          expenses: state.expenses.filter(expense => expense.id !== action.id).map(expense => {
+            if(expense.id > action.id) expense.id--
+
+            return expense;
+          })
+        }
     default:
       return state;
   }

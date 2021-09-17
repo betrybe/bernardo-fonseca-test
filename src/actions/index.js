@@ -38,13 +38,19 @@ export const addExpense = (expenseData) => {
     const data = await dataFetching();
 
     const exchangeRates = {};
-    
+
     for (const [key, value] of Object.entries(data)) {
-      if (key !== "USDT") Object.assign(exchangeRates, {[`${key}`]: value});
+      if (key !== "USDT") Object.assign(exchangeRates, { [`${key}`]: value });
     }
-    
+
     const expense = { ...expenseData, exchangeRates };
 
     dispatch({ type: "ADD_EXPENSE", expense });
+  };
+};
+
+export const deleteExpense = (id) => {
+  return (dispatch) => {
+    dispatch({ type: "DELETE_EXPENSE", id });
   };
 };
