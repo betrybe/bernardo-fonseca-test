@@ -8,7 +8,7 @@ class Login extends React.Component {
   state = {
     email: "",
     senha: "",
-    redirect: false
+    redirect: false,
   };
 
   setEmail = (event) => {
@@ -25,7 +25,7 @@ class Login extends React.Component {
     let checkIsValid = false;
 
     const pattern = {
-      email: /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})$/,
+      email: /^([a-z\d-]+)@([a-z\d-]+)\.([a-z]{2,8})$/,
     };
 
     checkIsValid =
@@ -39,18 +39,15 @@ class Login extends React.Component {
   submitCredentialsHandler = (event) => {
     event.preventDefault();
 
-    this.props.auth(this.state.email, this.state.senha);
-    this.setState({redirect: true});
+    this.props.auth(this.state.email);
+    this.setState({ redirect: true });
   };
-  
+
   render() {
-    if(this.state.redirect) return <Redirect to="/carteira" />
+    if (this.state.redirect) return <Redirect to="/carteira" />;
     return (
       <div>
         <form onSubmit={this.submitCredentialsHandler}>
-          <div>
-            <label htmlFor="email">
-              E-mail:
               <input
                 data-testid="email-input"
                 type="email"
@@ -60,12 +57,8 @@ class Login extends React.Component {
                 }}
                 required
               />
-            </label>
-          </div>
-          <div>
-            <label data-testid="password-input" htmlFor="password">
-              Senha:{" "}
               <input
+              data-testid="password-input"
                 type="password"
                 id="password"
                 minLength="6"
@@ -74,8 +67,6 @@ class Login extends React.Component {
                 }}
                 required
               />
-            </label>
-          </div>
           <button disabled={!this.credentialValidationHandler()}>Entrar</button>
         </form>
       </div>
@@ -85,7 +76,7 @@ class Login extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    auth: (email, senha) => dispatch(auth(email, senha)),
+    auth: (email) => dispatch(auth(email)),
   };
 };
 

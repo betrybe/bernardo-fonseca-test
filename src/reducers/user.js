@@ -1,8 +1,5 @@
-// Esse reducer será responsável por tratar as informações da pessoa usuária
-
 const initialState = {
   email: "",
-  senha: ""
 };
 
 const authReducer = (state = initialState, action) => {
@@ -10,7 +7,7 @@ const authReducer = (state = initialState, action) => {
     case "AUTH_SUCCESS":
       return {
         ...state,
-        ...{ email: action.email, senha: action.senha },
+        ...{ email: action.email },
       };
     default:
       return state;

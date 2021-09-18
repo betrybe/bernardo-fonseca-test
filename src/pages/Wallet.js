@@ -93,13 +93,11 @@ class Wallet extends React.Component {
     return (
       <div>
         <header>
-          <ul>
-            <li data-testid="email-field">{email}</li>
-            <li data-testid="total-field">
-              Despesa total: {this.showExpenses(despesas)}
-            </li>
-            <li data-testid="header-currency-field">BRL</li>
-          </ul>
+          <h1 data-testid="email-field">{email}</h1>
+          <h1 data-testid="total-field">
+            Despesa total: {this.showExpenses(despesas)}
+          </h1>
+          <h1 data-testid="header-currency-field">BRL</h1>
         </header>
         <form
           onSubmit={
@@ -110,23 +108,23 @@ class Wallet extends React.Component {
             Valor:
             <input
               type="number"
-              name="value"
+              name="Valor"
               ref={this.valueRef}
-              placeholder="0,00"
+              placeholder="0"
               min="0"
               required
             />
           </label>
           <label>
             Descrição:
-            <input type="text" name="drescription" ref={this.descriptionRef} />
+            <input type="text" name="Descrição" ref={this.descriptionRef} />
           </label>
           <label>
             Moeda:
-            <select name="currency" defaultValue={"USD"} ref={this.currencyRef}>
+            <select name="Moeda" defaultValue={"USD"} ref={this.currencyRef}>
               {moedas.map((moeda) => (
-                <option key={moeda.code} value={moeda.code}>
-                  {moeda.code}
+                <option key={moeda} value={moeda}>
+                  {moeda}
                 </option>
               ))}
             </select>
@@ -134,18 +132,18 @@ class Wallet extends React.Component {
           <label>
             Método de pagamento:
             <select
-              name="paymentMethod"
+              name="Método de pagamento"
               defaultValue={"Dinheiro"}
               ref={this.paymentMethodRef}
             >
               <option value="Dinheiro">Dinheiro</option>
-              <option value="Cartão de Crédito">Cartão de Crédito</option>
-              <option value="Cartão de Débito">Cartão de Débito</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
           <label>
             Tag:
-            <select name="tag" defaultValue={"Alimentação"} ref={this.tagRef}>
+            <select name="Tag" defaultValue={"Alimentação"} ref={this.tagRef}>
               <option value="Alimentação">Alimentação</option>
               <option value="Lazer">Lazer</option>
               <option value="Trabalho">Trabalho</option>
@@ -160,15 +158,15 @@ class Wallet extends React.Component {
         <table>
           <thead>
             <tr>
-              <th>Descrição</th>
-              <th>Tag</th>
-              <th>Método de pagamento</th>
-              <th>Valor</th>
-              <th>Moeda</th>
-              <th>Câmbio utilizado</th>
-              <th>Valor convertido</th>
-              <th>Moeda de conversão</th>
-              <th>Editar/Excluir</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Tag</th>
+              <th scope="col">Método de pagamento</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Moeda</th>
+              <th scope="col">Câmbio utilizado</th>
+              <th scope="col">Valor convertido</th>
+              <th scope="col">Moeda de conversão</th>
+              <th scope="col">Editar/Excluir</th>
             </tr>
           </thead>
           <tbody>
@@ -183,15 +181,16 @@ class Wallet extends React.Component {
                     currency: despesa.currency,
                   })}
                 </td>
+                <td>{despesa.exchangeRates[`${despesa.currency}`].name}</td>
                 <td>
-                  {
-                    despesa.exchangeRates[`${despesa.currency}`].name.split(
-                      "/"
-                    )[0]
-                  }
+                  {Number(
+                    despesa.exchangeRates[`${despesa.currency}`].ask
+                  ).toLocaleString("en-us", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
                 </td>
-                <td>{despesa.exchangeRates[`${despesa.currency}`].ask}</td>
-                <th>
+                <td>
                   {Number(
                     despesa.value *
                       despesa.exchangeRates[`${despesa.currency}`].ask
@@ -199,8 +198,8 @@ class Wallet extends React.Component {
                     style: "currency",
                     currency: "BRL",
                   })}
-                </th>
-                <td>Real Brasileiro</td>
+                </td>
+                <td>Real</td>
                 <td>
                   <button
                     data-testid="edit-btn"
@@ -229,6 +228,7 @@ class Wallet extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.wallet.expenses)
   return {
     email: state.user.email,
     despesas: state.wallet.expenses,

@@ -1,4 +1,3 @@
-// Coloque aqui suas actions
 
 const dataFetching = async () => {
   const response = await fetch("https://economia.awesomeapi.com.br/json/all");
@@ -8,12 +7,11 @@ const dataFetching = async () => {
   return data;
 };
 
-export const auth = (email, senha) => {
+export const auth = (email) => {
   return (dispatch) => {
     dispatch({
       type: "AUTH_SUCCESS",
-      email,
-      senha
+      email
     });
   };
 };
@@ -25,7 +23,7 @@ export const fetchCurrencyData = () => {
     const currencies = [];
 
     for (const [key, value] of Object.entries(data)) {
-      if (key !== "USDT") currencies.push(value);
+      if (key !== "USDT" && key !== "DOGE") currencies.push(value.code);
     }
 
     dispatch({ type: "FETCH_CURRENCY", currencies });
@@ -39,7 +37,10 @@ export const addExpense = (expenseData) => {
     const exchangeRates = {};
 
     for (const [key, value] of Object.entries(data)) {
-      if (key !== "USDT") Object.assign(exchangeRates, { [`${key}`]: value });
+      if (key !== "USDT" && key !== "DOGE") Object.assign(exchangeRates, { [`${key}`]: {
+        ...value,
+        name: value.name.split('/')[0]
+      } });
     }
 
     const expense = { ...expenseData, exchangeRates };
