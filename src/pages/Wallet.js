@@ -1,9 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { fetchCurrencyData, addExpense, deleteExpense } from "../actions/index";
+import {
+  fetchCurrencyData,
+  addExpense,
+  deleteExpense,
+  editExpense,
+} from "../actions/index";
 
 class Wallet extends React.Component {
+  state = {
+    isEdit: false,
+    id: "",
+  };
+
   valueRef = React.createRef();
   descriptionRef = React.createRef();
   currencyRef = React.createRef();
@@ -31,7 +41,37 @@ class Wallet extends React.Component {
 
   deleteRow = (id) => {
     this.props.deleteExpense(id);
-  }
+  };
+
+  isEdit = (id) => {
+    this.setState((state) => {
+      return {
+        isEdit: !state.isEdit,
+        id: id,
+      };
+    });
+  };
+
+  editRow = (event) => {
+    event.preventDefault();
+
+    const expenseData = {
+      value: this.valueRef.current.value,
+      description: this.descriptionRef.current.value,
+      currency: this.currencyRef.current.value,
+      method: this.paymentMethodRef.current.value,
+      tag: this.tagRef.current.value,
+      id: this.state.id,
+    };
+
+    this.setState((state) => {
+      return {
+        isEdit: !state.isEdit,
+      };
+    });
+
+    this.props.editExpense(expenseData);
+  };
 
   submitExpensesHandler = (event) => {
     event.preventDefault();
@@ -61,7 +101,11 @@ class Wallet extends React.Component {
             <li data-testid="header-currency-field">BRL</li>
           </ul>
         </header>
-        <form onSubmit={this.submitExpensesHandler}>
+        <form
+          onSubmit={
+            this.state.isEdit ? this.editRow : this.submitExpensesHandler
+          }
+        >
           <label>
             Valor:
             <input
@@ -109,7 +153,9 @@ class Wallet extends React.Component {
               <option value="Saúde">Saúde</option>
             </select>
           </label>
-          <button type="submit">Adicionar despesa</button>
+          <button type="submit">
+            {this.state.isEdit ? "Editar despesa" : "Adicionar despesa"}
+          </button>
         </form>
         <table>
           <thead>
@@ -137,7 +183,13 @@ class Wallet extends React.Component {
                     currency: despesa.currency,
                   })}
                 </td>
-                <td>{despesa.currency}</td>
+                <td>
+                  {
+                    despesa.exchangeRates[`${despesa.currency}`].name.split(
+                      "/"
+                    )[0]
+                  }
+                </td>
                 <td>{despesa.exchangeRates[`${despesa.currency}`].ask}</td>
                 <th>
                   {Number(
@@ -148,9 +200,24 @@ class Wallet extends React.Component {
                     currency: "BRL",
                   })}
                 </th>
-                <td>BRL</td>
+                <td>Real Brasileiro</td>
                 <td>
-                  <button data-testid="delete-btn" onClick={()=>{this.deleteRow(despesa.id)}}>Excluir</button>
+                  <button
+                    data-testid="edit-btn"
+                    onClick={() => {
+                      this.isEdit(despesa.id);
+                    }}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    data-testid="delete-btn"
+                    onClick={() => {
+                      this.deleteRow(despesa.id);
+                    }}
+                  >
+                    Excluir
+                  </button>
                 </td>
               </tr>
             ))}
@@ -173,7 +240,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchCurrencyData: () => dispatch(fetchCurrencyData()),
     addExpense: (expenseData) => dispatch(addExpense(expenseData)),
-    deleteExpense: id => dispatch(deleteExpense(id))
+    deleteExpense: (id) => dispatch(deleteExpense(id)),
+    editExpense: (expenseData) => dispatch(editExpense(expenseData)),
   };
 };
 

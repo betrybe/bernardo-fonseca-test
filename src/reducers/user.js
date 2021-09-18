@@ -2,22 +2,16 @@
 
 const initialState = {
   email: "",
-  password: "",
-  isLoggedIn: false,
-};
-
-const updateObject = (prevObject, update) => {
-  return {
-    ...prevObject,
-    ...update,
-  };
+  senha: ""
 };
 
 const authReducer = (state = initialState, action) => {
-  const { email, password, isLoggedIn } = action;
   switch (action.type) {
     case "AUTH_SUCCESS":
-      return updateObject(state, { email, password, isLoggedIn });
+      return {
+        ...state,
+        ...{ email: action.email, senha: action.senha },
+      };
     default:
       return state;
   }

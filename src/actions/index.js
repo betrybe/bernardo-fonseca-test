@@ -8,13 +8,12 @@ const dataFetching = async () => {
   return data;
 };
 
-export const auth = (email, password, isLoggedIn = true) => {
+export const auth = (email, senha) => {
   return (dispatch) => {
     dispatch({
       type: "AUTH_SUCCESS",
       email,
-      password,
-      isLoggedIn,
+      senha
     });
   };
 };
@@ -54,3 +53,9 @@ export const deleteExpense = (id) => {
     dispatch({ type: "DELETE_EXPENSE", id });
   };
 };
+
+export const editExpense = (expenseData) => {
+  return dispatch => {
+    dispatch({type: "EDIT_EXPENSE", expenseData})
+  }
+}
