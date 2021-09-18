@@ -1,41 +1,63 @@
-.App {
-  text-align: center;
+.main_page {
+  width: 100%;
+  height: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+/* Login page style */
 
-@media ( prefers-reduced-motion : no-preference ) {
+.form_page_login {
+  width: 100%;
+  height: 100%;
 
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
+  display: flex;
+  justify-content: center;
   align-items: center;
-  background-color: #282c34;
-  color: white;
+}
+
+.login_form {
+  width: 35%;
+  height: 50%;
+
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
   justify-content: center;
-  min-height: 100vh;
+  align-items: center;
+
+  border: 1px solid black;
+  border-radius: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.input_login{
+  width: 70%;
+  height: 10%;
+
+  margin: 5px 0;
+
+  font-size: 1rem;
 }
 
-@keyframes App-logo-spin {
+.form_page_login button{
+  width: 70%;
+  height: 10%;
 
-  from {
-    transform: rotate(0deg);
-  }
+  border: none;
+  border-radius: 4px;
 
-  to {
-    transform: rotate(360deg);
-  }
+  background-color: #25a570;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
 }
+
+.form_page_login button:hover{
+  background-color: #000000;
+  color: #25a570;
+}
+
+.form_page_login button:disabled{
+  background-color: #b7b9b9;
+  color: #e4e4e4;
+
+  cursor: not-allowed;
+}
+

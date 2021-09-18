@@ -4,6 +4,8 @@ import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 import { auth } from "../actions";
 
+import "../App.css";
+
 class Login extends React.Component {
   state = {
     email: "",
@@ -46,27 +48,29 @@ class Login extends React.Component {
   render() {
     if (this.state.redirect) return <Redirect to="/carteira" />;
     return (
-      <div>
-        <form onSubmit={this.submitCredentialsHandler}>
-              <input
-                data-testid="email-input"
-                type="email"
-                id="email"
-                onChange={(event) => {
-                  this.setEmail(event);
-                }}
-                required
-              />
-              <input
-              data-testid="password-input"
-                type="password"
-                id="password"
-                minLength="6"
-                onChange={(event) => {
-                  this.setPassword(event);
-                }}
-                required
-              />
+      <div className="form_page_login">
+        <form onSubmit={this.submitCredentialsHandler} className="login_form">
+          <input
+            data-testid="email-input"
+            className="input_login"
+            type="email"
+            id="email"
+            onChange={(event) => {
+              this.setEmail(event);
+            }}
+            required
+          />
+          <input
+            data-testid="password-input"
+            className="input_login"
+            type="password"
+            id="password"
+            minLength="6"
+            onChange={(event) => {
+              this.setPassword(event);
+            }}
+            required
+          />
           <button disabled={!this.credentialValidationHandler()}>Entrar</button>
         </form>
       </div>
