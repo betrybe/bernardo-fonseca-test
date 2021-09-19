@@ -1,69 +1,66 @@
 .wallet_table {
-    height: 90%;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 90%;
+  width: 100%;
+}
+
+.wallet_table thead, tbody, tr {
+  display: inline-block;
+  width: 100%;
+}
   
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
+.wallet_table thead {
+  height: 50px;
+  background-color: #333232;
+}
   
-  .wallet_table thead,
-  tbody,
-  tr {
-    width: 100%;
-    display: inline-block;
-  }
+.wallet_table tr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
   
-  .wallet_table thead {
-    height: 50px;
-    background-color: #333232;
-  }
+.wallet_table thead tr {
+  height: 100%;
+}
   
-  .wallet_table tr {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.wallet_table th {
+  color: white;
+  width: 15%;
+  text-align: center;
+}
   
-  .wallet_table thead tr {
-    height: 100%;
-  }
+.wallet_table tbody tr {
+  background-color: #f3f3f3;
+  border-bottom: 2px solid #b7b9b9;
+}
   
-  .wallet_table th {
-    color: white;
-    width: 15%;
-    text-align: center;
-  }
+.wallet_table td {
+  text-align: center;
+}
   
-  .wallet_table tbody tr {
-    background-color: #f3f3f3;
-    border-bottom: 2px solid #b7b9b9;
-  }
+.wallet_table td {
+  width: 15%;
+  text-align: center;
+}
   
-  .wallet_table td {
-    text-align: center;
-  }
+.wallet_table-edite {
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ebb402;
+  margin-right: 4px;
+  font-weight: 500;
+}
   
-  .wallet_table td {
-    width: 15%;
-    text-align: center;
-  }
-  
-  .wallet_table-edite {
-    height: 25px;
-    border: none;
-    border-radius: 5px;
-    background-color: #ebb402;
-    margin-right: 4px;
-    font-weight: 500;
-  }
-  
-  .wallet_table-delete {
-    height: 25px;
-    border: none;
-    border-radius: 5px;
-    background-color: #ff4848;
-    color: white;
-    font-weight: 500;
-  }
+.wallet_table-delete {
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ff4848;
+  color: white;
+  font-weight: 500;
+}

@@ -1,58 +1,71 @@
-import React from "react";
+import React from 'react';
 
 import './Form.css';
 
 function Form(props) {
-    const {isEdit, editRow, submitExpensesHandler, valueRef, descriptionRef, moedas, currencyRef, paymentMethodRef, tagRef} = props;
+  const { 
+    isEdit, 
+    editRow, 
+    submitExpensesHandler, 
+    valueRef, 
+    descriptionRef, 
+    moedas, 
+    currencyRef, 
+    paymentMethodRef, 
+    tagRef } = props;
 
   return (
     <form
-      onSubmit={isEdit ? editRow : submitExpensesHandler}
-      className={isEdit ? "wallet_form-edit" : "wallet_form"}
+      onSubmit={ isEdit ? editRow : submitExpensesHandler }
+      className={ isEdit ? "wallet_form-edit" : "wallet_form" }
     >
-      <label>
+      <label htmlFor="value-input">
         Valor:
         <input
           type="number"
+          id="value-input"
           name="value"
-          ref={valueRef}
+          ref={ valueRef }
           placeholder="0"
           min="0"
           required
           className="wallet_form-input wallet_form-input-valor"
         />
       </label>
-      <label>
+      <label htmlFor="description-input">
         Descrição:
         <input
           type="text"
+          id="description-input"
           name="description"
-          ref={descriptionRef}
+          ref={ descriptionRef }
           required
           className="wallet_form-input"
         />
       </label>
-      <label>
+      <label htmlFor="currency-input">
         Moeda:
         <select
           name="currency"
+          id="currency-input"
           defaultValue={"USD"}
-          ref={currencyRef}
+          ref={ currencyRef }
           className="wallet_form-input"
         >
           {moedas.map((moeda) => (
-            <option key={moeda} value={moeda}>
-              {moeda}
+            <option key={ moeda } value={ moeda }>
+              { moeda }
             </option>
           ))}
         </select>
       </label>
-      <label>
+      <label htmlFor="method-input">
         Método de pagamento:
         <select
           name="method"
-          defaultValue={"Dinheiro"}
-          ref={paymentMethodRef}
+          id="method-input"
+          defaultValue={ "Dinheiro" }
+          ref={ paymentMethodRef }
           className="wallet_form-input"
         >
           <option value="Dinheiro">Dinheiro</option>
@@ -60,12 +73,13 @@ function Form(props) {
           <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
-      <label>
+      <label htmlFor="tag-input">
         Tag:
         <select
           name="tag"
-          defaultValue={"Alimentação"}
-          ref={tagRef}
+          id="tag-input"
+          defaultValue={ "Alimentação" }
+          ref={ tagRef }
           className="wallet_form-input"
         >
           <option value="Alimentação">Alimentação</option>
@@ -83,7 +97,7 @@ function Form(props) {
             : "wallet_form-add-button"
         }
       >
-        {isEdit ? "Editar despesa" : "Adicionar despesa"}
+        { isEdit ? 'Editar despesa' : 'Adicionar despesa' }
       </button>
     </form>
   );

@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import "./Header.css";
+import './Header.css';
 
 function Header(props) {
   const { email, currencyToExchange, totalExpenses } = props;
@@ -10,7 +10,9 @@ function Header(props) {
       <h2 data-testid="email-field" className="email_header">
         {email}
       </h2>
-      <h2 data-testid="total-field">Despesa total: {totalExpenses()}</h2>
+      <h2 data-testid="total-field">
+        Despesa total: { totalExpenses() }
+      </h2>
       <h2 data-testid="header-currency-field">{currencyToExchange}</h2>
     </header>
   );

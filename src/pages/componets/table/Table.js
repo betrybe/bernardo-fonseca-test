@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import "./Table.css";
+import './Table.css';
 
 function Table(props) {
   const { despesas, currencyToExchange, isEdit, deleteRow } = props;
@@ -21,57 +21,46 @@ function Table(props) {
         </tr>
       </thead>
       <tbody>
-        {despesas.map((despesa) => (
+        { despesas.map((despesa) => (
           <tr key={despesa.id}>
             <td>{despesa.description}</td>
             <td>{despesa.tag}</td>
             <td>{despesa.method}</td>
             <td>
-              {Number(despesa.value).toLocaleString("en-us", {
-                style: "currency",
-                currency: despesa.currency,
-              })}
+              { despesa.value }
             </td>
             <td>{despesa.exchangeRates[`${despesa.currency}`].name}</td>
             <td>
-              {Number(
-                despesa.exchangeRates[`${despesa.currency}`].ask
-              ).toLocaleString("en-us", {
-                style: "currency",
-                currency: `${currencyToExchange}`,
-              })}
+              { `${Number(despesa.exchangeRates[`${despesa.currency}`].ask).toFixed(2)}` }
             </td>
             <td>
-              {Number(
-                despesa.value * despesa.exchangeRates[`${despesa.currency}`].ask
-              ).toLocaleString("en-us", {
-                style: "currency",
-                currency: `${currencyToExchange}`,
-              })}
+              { `${(despesa.value * Number(despesa.exchangeRates[`${despesa.currency}`].ask)).toFixed(2)}` }
             </td>
             <td>Real</td>
             <td>
               <button
                 data-testid="edit-btn"
-                onClick={() => {
+                type="button"
+                onClick={ () => {
                   isEdit(despesa.id);
-                }}
+                } }
                 className="wallet_table-edite"
               >
                 Editar
               </button>
               <button
                 data-testid="delete-btn"
-                onClick={() => {
+                type="button"
+                onClick={ () => {
                   deleteRow(despesa.id);
-                }}
+                } }
                 className="wallet_table-delete"
               >
                 Excluir
               </button>
             </td>
           </tr>
-        ))}
+        )) }
       </tbody>
     </table>
   );

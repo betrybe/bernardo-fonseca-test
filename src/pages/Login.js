@@ -1,10 +1,10 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
-import { auth } from "../actions";
+import { auth } from '../actions';
 
-import "./Login.css";
+import './Login.css';
 
 class Login extends React.Component {
   state = {
