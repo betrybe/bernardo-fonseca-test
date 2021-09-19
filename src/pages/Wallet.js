@@ -8,6 +8,8 @@ import {
   editExpense,
 } from "../actions/index";
 
+import "../App.css";
+
 class Wallet extends React.Component {
   state = {
     isEdit: false,
@@ -85,43 +87,60 @@ class Wallet extends React.Component {
     };
 
     this.props.addExpense(expenseData);
+
+    this.valueRef.current.value = "";
+    this.descriptionRef.current.value = "";
   };
 
   render() {
     const { email, despesas, moedas } = this.props;
 
     return (
-      <div>
-        <header>
-          <h1 data-testid="email-field">{email}</h1>
-          <h1 data-testid="total-field">
+      <div className="wallet_page">
+        <header className="wallet_header">
+          <h2 data-testid="email-field" className="email_header">
+            {email}
+          </h2>
+          <h2 data-testid="total-field">
             Despesa total: {this.showExpenses(despesas)}
-          </h1>
-          <h1 data-testid="header-currency-field">BRL</h1>
+          </h2>
+          <h2 data-testid="header-currency-field">BRL</h2>
         </header>
         <form
           onSubmit={
             this.state.isEdit ? this.editRow : this.submitExpensesHandler
           }
+          className={this.state.isEdit ? "wallet_form-edit" : "wallet_form"}
         >
           <label>
             Valor:
             <input
               type="number"
-              name="Valor"
+              name="value"
               ref={this.valueRef}
               placeholder="0"
-              min="0"
               required
+              className="wallet_form-input wallet_form-input-valor"
             />
           </label>
           <label>
             Descrição:
-            <input type="text" name="Descrição" ref={this.descriptionRef} />
+            <input
+              type="text"
+              name="description"
+              ref={this.descriptionRef}
+              required
+              className="wallet_form-input"
+            />
           </label>
           <label>
             Moeda:
-            <select name="Moeda" defaultValue={"USD"} ref={this.currencyRef}>
+            <select
+              name="currency"
+              defaultValue={"USD"}
+              ref={this.currencyRef}
+              className="wallet_form-input"
+            >
               {moedas.map((moeda) => (
                 <option key={moeda} value={moeda}>
                   {moeda}
@@ -132,9 +151,10 @@ class Wallet extends React.Component {
           <label>
             Método de pagamento:
             <select
-              name="Método de pagamento"
+              name="method"
               defaultValue={"Dinheiro"}
               ref={this.paymentMethodRef}
+              className="wallet_form-input"
             >
               <option value="Dinheiro">Dinheiro</option>
               <option value="Cartão de crédito">Cartão de crédito</option>
@@ -143,7 +163,12 @@ class Wallet extends React.Component {
           </label>
           <label>
             Tag:
-            <select name="Tag" defaultValue={"Alimentação"} ref={this.tagRef}>
+            <select
+              name="tag"
+              defaultValue={"Alimentação"}
+              ref={this.tagRef}
+              className="wallet_form-input"
+            >
               <option value="Alimentação">Alimentação</option>
               <option value="Lazer">Lazer</option>
               <option value="Trabalho">Trabalho</option>
@@ -151,11 +176,18 @@ class Wallet extends React.Component {
               <option value="Saúde">Saúde</option>
             </select>
           </label>
-          <button type="submit">
+          <button
+            type="submit"
+            className={
+              this.state.isEdit
+                ? "wallet_form-edit-button"
+                : "wallet_form-add-button"
+            }
+          >
             {this.state.isEdit ? "Editar despesa" : "Adicionar despesa"}
           </button>
         </form>
-        <table>
+        <table className="wallet_table">
           <thead>
             <tr>
               <th scope="col">Descrição</th>
@@ -206,6 +238,7 @@ class Wallet extends React.Component {
                     onClick={() => {
                       this.isEdit(despesa.id);
                     }}
+                    className="wallet_table-edite"
                   >
                     Editar
                   </button>
@@ -214,6 +247,7 @@ class Wallet extends React.Component {
                     onClick={() => {
                       this.deleteRow(despesa.id);
                     }}
+                    className="wallet_table-delete"
                   >
                     Excluir
                   </button>
@@ -228,7 +262,7 @@ class Wallet extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.wallet.expenses)
+  console.log(state.wallet.expenses);
   return {
     email: state.user.email,
     despesas: state.wallet.expenses,

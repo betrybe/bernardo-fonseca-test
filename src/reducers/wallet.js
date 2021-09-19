@@ -25,19 +25,21 @@ const walletReducer = (state = initialState, action) => {
     case "ADD_EXPENSE":
       return {
         ...state,
-        expenses: state.expenses.concat({
-          ...action.expense,
-          id: alocador(state.expenses, state.expenses.length),
-        }).sort(function (expense1, expense2) {
-          if (expense1.id > expense2.id) {
-            return 1;
-          }
-          if (expense1.id < expense2.id) {
-            return -1;
-          }
+        expenses: state.expenses
+          .concat({
+            ...action.expense,
+            id: alocador(state.expenses, state.expenses.length),
+          })
+          .sort(function (expense1, expense2) {
+            if (expense1.id > expense2.id) {
+              return 1;
+            }
+            if (expense1.id < expense2.id) {
+              return -1;
+            }
 
-          return 0;
-        }),
+            return 0;
+          }),
       };
     case "DELETE_EXPENSE":
       return {
