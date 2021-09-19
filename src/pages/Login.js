@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 import { auth } from "../actions";
 
-import "../App.css";
+import "./Login.css";
 
 class Login extends React.Component {
   state = {

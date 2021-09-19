@@ -1,24 +1,45 @@
+const dataFetching = async (dispatch) => {
+  dispatch(isFetching());
+  try {
+    const response = await fetch("https://economia.awesomeapi.com.br/json/all");
 
-const dataFetching = async () => {
-  const response = await fetch("https://economia.awesomeapi.com.br/json/all");
+    const data = await response.json();
 
-  const data = await response.json();
+    dispatch(isFetched());
 
-  return data;
+    return data;
+  } catch (error) {
+    //dispatch(isFetched());
+    return error;
+  }
+};
+
+const isFetching = () => {
+  return {
+    type: "IS_FETCHING",
+    isFetching: true,
+  };
+};
+
+const isFetched = () => {
+  return {
+    type: "IS_FETCHING",
+    isFetching: false,
+  };
 };
 
 export const auth = (email) => {
   return (dispatch) => {
     dispatch({
       type: "AUTH_SUCCESS",
-      email
+      email,
     });
   };
 };
 
 export const fetchCurrencyData = () => {
   return async (dispatch) => {
-    const data = await dataFetching();
+    const data = await dataFetching(dispatch);
 
     const currencies = [];
 
@@ -32,15 +53,18 @@ export const fetchCurrencyData = () => {
 
 export const addExpense = (expenseData) => {
   return async (dispatch) => {
-    const data = await dataFetching();
+    const data = await dataFetching(dispatch);
 
     const exchangeRates = {};
 
     for (const [key, value] of Object.entries(data)) {
-      if (key !== "USDT" && key !== "DOGE") Object.assign(exchangeRates, { [`${key}`]: {
-        ...value,
-        name: value.name.split('/')[0]
-      } });
+      if (key !== "USDT" && key !== "DOGE")
+        Object.assign(exchangeRates, {
+          [`${key}`]: {
+            ...value,
+            name: value.name.split("/")[0],
+          },
+        });
     }
 
     const expense = { ...expenseData, exchangeRates };
@@ -56,7 +80,7 @@ export const deleteExpense = (id) => {
 };
 
 export const editExpense = (expenseData) => {
-  return dispatch => {
-    dispatch({type: "EDIT_EXPENSE", expenseData})
-  }
-}
+  return (dispatch) => {
+    dispatch({ type: "EDIT_EXPENSE", expenseData });
+  };
+};

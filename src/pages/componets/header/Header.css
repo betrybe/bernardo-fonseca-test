@@ -1,0 +1,33 @@
+.wallet_header {
+    width: 100%;
+    height: 50px;
+  
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  
+    background-color: rgb(197, 197, 197);
+    background: linear-gradient(
+      0deg,
+      rgba(2, 0, 36, 1) 1%,
+      rgba(77, 77, 77, 1) 6%,
+      rgb(221, 221, 221) 8%
+    );
+    border-bottom: 1px solid black;
+  }
+  
+  .wallet_header h2 {
+    margin: 3px;
+  
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+  
+  .wallet_header h2:last-child {
+    margin-right: 15px;
+  }
+  
+  h2.email_header {
+    margin-right: 60px;
+  }

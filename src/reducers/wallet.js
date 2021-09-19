@@ -1,4 +1,6 @@
 const initialState = {
+  isFetching: false,
+  currencyToExchange: 'BRL',
   currencies: [],
   expenses: [],
 };
@@ -39,7 +41,7 @@ const walletReducer = (state = initialState, action) => {
             }
 
             return 0;
-          }),
+          })
       };
     case "DELETE_EXPENSE":
       return {
@@ -60,6 +62,11 @@ const walletReducer = (state = initialState, action) => {
           return expense;
         }),
       };
+    case "IS_FETCHING":
+      return {
+        ...state,
+        isFetching: action.isFetching
+      }
     default:
       return state;
   }
