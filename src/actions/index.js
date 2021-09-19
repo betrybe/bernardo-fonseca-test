@@ -9,7 +9,7 @@ const dataFetching = async (dispatch) => {
 
     return data;
   } catch (error) {
-    //dispatch(isFetched());
+    dispatch(isFetched());
     return error;
   }
 };
