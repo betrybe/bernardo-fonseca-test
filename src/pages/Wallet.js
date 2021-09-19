@@ -116,8 +116,10 @@ class Wallet extends React.Component {
         paymentMethodRef={this.paymentMethodRef}
         tagRef={this.tagRef}
         />
-        <Table despesas={despesas} currencyToExchange={currencyToExchange}
-        isEdit={this.isEdit} deleteRow={this.deleteRow}/>
+        <Table despesas={despesas}
+        isEdit={this.isEdit} 
+        deleteRow={this.deleteRow}
+        />
       </div>
     );
   }

@@ -3,7 +3,7 @@ import React from 'react';
 import './Table.css';
 
 function Table(props) {
-  const { despesas, currencyToExchange, isEdit, deleteRow } = props;
+  const { despesas, isEdit, deleteRow } = props;
 
   return (
     <table className="wallet_table">
@@ -27,7 +27,7 @@ function Table(props) {
             <td>{despesa.tag}</td>
             <td>{despesa.method}</td>
             <td>
-              { despesa.value }
+              { despesa.value /*Os testes não aceitam a resolução que mostra a celula com duas casas decimais, como requerido no README.md*/}
             </td>
             <td>{despesa.exchangeRates[`${despesa.currency}`].name}</td>
             <td>
