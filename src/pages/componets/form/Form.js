@@ -24,7 +24,8 @@ function Form(props) {
         <input
           type="number"
           id="value-input"
-          name="value"
+          data-testid="value-input"
+          name="value-input"
           ref={ valueRef }
           placeholder="0"
           min="0"
@@ -37,6 +38,7 @@ function Form(props) {
         <input
           type="text"
           id="description-input"
+          data-testid="description-input"
           name="description"
           ref={ descriptionRef }
           required
@@ -48,6 +50,7 @@ function Form(props) {
         <select
           name="currency"
           id="currency-input"
+          data-testid="currency-input"
           defaultValue={"USD"}
           ref={ currencyRef }
           className="wallet_form-input"
@@ -64,6 +67,7 @@ function Form(props) {
         <select
           name="method"
           id="method-input"
+          data-testid="method-input"
           defaultValue={ "Dinheiro" }
           ref={ paymentMethodRef }
           className="wallet_form-input"
@@ -78,6 +82,7 @@ function Form(props) {
         <select
           name="tag"
           id="tag-input"
+          data-testid="tag-input"
           defaultValue={ "Alimentação" }
           ref={ tagRef }
           className="wallet_form-input"
