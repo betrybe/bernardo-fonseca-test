@@ -1,8 +1,8 @@
 .wallet_page {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
   height: 100%;
-  width: 100%; 
+  justify-content: flex-start;
+  width: 100%;
 }

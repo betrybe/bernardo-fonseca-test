@@ -1,24 +1,19 @@
 .wallet_header {
+  align-items: center;
+  background: linear-gradient(0deg, rgba(2, 0, 36, 1) 1%, rgba(77, 77, 77, 1) 6%, rgb(221, 221, 221) 8%);
+  background-color: rgb(197, 197, 197);
+  border-bottom: 1px solid black;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
   height: 50px;
+  justify-content: flex-end;
   width: 100%;
-  background-color: rgb(197, 197, 197);
-  background: linear-gradient(
-    0deg,
-    rgba(2, 0, 36, 1) 1%,
-    rgba(77, 77, 77, 1) 6%,
-    rgb(221, 221, 221) 8%
-  );
-  border-bottom: 1px solid black;
 }
 
 .wallet_header h2 {
-  margin: 3px;
-  font-weight: 500;
   font-size: 1.1rem;
+  font-weight: 500;
+  margin: 3px;
 }
 
 .wallet_header h2:last-child {

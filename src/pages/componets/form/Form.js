@@ -1,23 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Form.css';
 
 function Form(props) {
-  const { 
-    isEdit, 
-    editRow, 
-    submitExpensesHandler, 
-    valueRef, 
-    descriptionRef, 
-    moedas, 
-    currencyRef, 
-    paymentMethodRef, 
+  const {
+    isEdit,
+    editRow,
+    submitExpensesHandler,
+    valueRef,
+    descriptionRef,
+    moedas,
+    currencyRef,
+    paymentMethodRef,
     tagRef } = props;
 
   return (
     <form
       onSubmit={ isEdit ? editRow : submitExpensesHandler }
-      className={ isEdit ? "wallet_form-edit" : "wallet_form" }
+      className={ isEdit ? 'wallet_form-edit' : 'wallet_form' }
     >
       <label htmlFor="value-input">
         Valor:
@@ -51,7 +52,7 @@ function Form(props) {
           name="currency"
           id="currency-input"
           data-testid="currency-input"
-          defaultValue={"USD"}
+          defaultValue="USD"
           ref={ currencyRef }
           className="wallet_form-input"
         >
@@ -68,7 +69,7 @@ function Form(props) {
           name="method"
           id="method-input"
           data-testid="method-input"
-          defaultValue={ "Dinheiro" }
+          defaultValue="Dinheiro"
           ref={ paymentMethodRef }
           className="wallet_form-input"
         >
@@ -83,7 +84,7 @@ function Form(props) {
           name="tag"
           id="tag-input"
           data-testid="tag-input"
-          defaultValue={ "Alimentação" }
+          defaultValue="Alimentação"
           ref={ tagRef }
           className="wallet_form-input"
         >
@@ -98,8 +99,8 @@ function Form(props) {
         type="submit"
         className={
           isEdit
-            ? "wallet_form-edit-button"
-            : "wallet_form-add-button"
+            ? 'wallet_form-edit-button'
+            : 'wallet_form-add-button'
         }
       >
         { isEdit ? 'Editar despesa' : 'Adicionar despesa' }
@@ -107,5 +108,12 @@ function Form(props) {
     </form>
   );
 }
+
+Form.propTypes = {
+  isEdit: PropTypes.bool.isRequired,
+  editRow: PropTypes.func.isRequired,
+  submitExpensesHandler: PropTypes.func.isRequired,
+  moedas: PropTypes.arrayOf(PropTypes.string),
+};
 
 export default Form;

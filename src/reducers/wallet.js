@@ -1,20 +1,10 @@
+import { alocador, formatArray } from './helpers/helpers';
+
 const initialState = {
   isFetching: false,
   currencyToExchange: 'BRL',
   currencies: [],
   expenses: [],
-};
-
-const alocador = (expenses, id) => {
-  let returnedId = 0;
-
-  for (let i = 0; i < id; i++) {
-    if (i === expenses[i].id) {
-      returnedId++;
-    }
-  }
-
-  return returnedId;
 };
 
 const walletReducer = (state = initialState, action) => {
@@ -27,21 +17,11 @@ const walletReducer = (state = initialState, action) => {
   case 'ADD_EXPENSE':
     return {
       ...state,
-      expenses: state.expenses
+      expenses: formatArray(state.expenses
         .concat({
           ...action.expense,
           id: alocador(state.expenses, state.expenses.length),
-        })
-        .sort((expense1, expense2) => {
-          if (expense1.id > expense2.id) {
-            return 1;
-          }
-          if (expense1.id < expense2.id) {
-            return -1;
-          }
-
-          return 0;
-        })
+        })),
     };
   case 'DELETE_EXPENSE':
     return {
@@ -65,7 +45,7 @@ const walletReducer = (state = initialState, action) => {
   case 'IS_FETCHING':
     return {
       ...state,
-      isFetching: action.isFetching
+      isFetching: action.isFetching,
     };
   default:
     return state;

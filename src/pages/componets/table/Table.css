@@ -1,9 +1,9 @@
 .wallet_table {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
   height: 90%;
+  justify-content: flex-start;
   width: 100%;
 }
 
@@ -11,56 +11,56 @@
   display: inline-block;
   width: 100%;
 }
-  
+
 .wallet_table thead {
-  height: 50px;
   background-color: #333232;
+  height: 50px;
 }
-  
+
 .wallet_table tr {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
-  
+
 .wallet_table thead tr {
   height: 100%;
 }
-  
+
 .wallet_table th {
   color: white;
-  width: 15%;
   text-align: center;
+  width: 15%;
 }
-  
+
 .wallet_table tbody tr {
   background-color: #f3f3f3;
   border-bottom: 2px solid #b7b9b9;
 }
-  
+
 .wallet_table td {
   text-align: center;
 }
-  
+
 .wallet_table td {
+  text-align: center;
   width: 15%;
-  text-align: center;
 }
-  
+
 .wallet_table-edite {
-  height: 25px;
-  border: none;
-  border-radius: 5px;
   background-color: #ebb402;
-  margin-right: 4px;
-  font-weight: 500;
-}
-  
-.wallet_table-delete {
-  height: 25px;
   border: none;
   border-radius: 5px;
+  font-weight: 500;
+  height: 25px;
+  margin-right: 4px;
+}
+
+.wallet_table-delete {
   background-color: #ff4848;
+  border: none;
+  border-radius: 5px;
   color: white;
   font-weight: 500;
+  height: 25px;
 }

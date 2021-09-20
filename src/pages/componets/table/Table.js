@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Table.css';
 
@@ -22,19 +23,20 @@ function Table(props) {
       </thead>
       <tbody>
         { despesas.map((despesa) => (
-          <tr key={despesa.id}>
-            <td>{despesa.description}</td>
-            <td>{despesa.tag}</td>
-            <td>{despesa.method}</td>
+          <tr key={ despesa.id }>
+            <td>{ despesa.description }</td>
+            <td>{ despesa.tag }</td>
+            <td>{ despesa.method }</td>
             <td>
-              { despesa.value /*Os testes não aceitam a resolução que mostra a celula com duas casas decimais, como requerido no README.md*/}
+              { despesa.value }
             </td>
-            <td>{despesa.exchangeRates[`${despesa.currency}`].name}</td>
+            <td>{ despesa.exchangeRates[`${despesa.currency}`].name }</td>
             <td>
               { `${Number(despesa.exchangeRates[`${despesa.currency}`].ask).toFixed(2)}` }
             </td>
             <td>
-              { `${(despesa.value * Number(despesa.exchangeRates[`${despesa.currency}`].ask)).toFixed(2)}` }
+              { `${(despesa.value
+              * Number(despesa.exchangeRates[`${despesa.currency}`].ask)).toFixed(2)}` }
             </td>
             <td>Real</td>
             <td>
@@ -65,5 +67,11 @@ function Table(props) {
     </table>
   );
 }
+
+Table.propTypes = {
+  despesas: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isEdit: PropTypes.func.isRequired,
+  deleteRow: PropTypes.func.isRequired,
+};
 
 export default Table;
