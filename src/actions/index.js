@@ -34,11 +34,9 @@ export const auth = (email) => (dispatch) => {
 export const fetchCurrencyData = () => async (dispatch) => {
   const data = await dataFetching(dispatch);
 
-  const currencies = [];
-
-  for (const [key, value] of Object.entries(data)) {
-    if (key !== 'USDT' && key !== 'DOGE') currencies.push(value.code);
-  }
+  const currencies = Object.entries(data)
+    .filter((currency) => (currency[0] !== 'USDT' && currency[0] !== 'DOGE'))
+    .map((currency) => currency[1].code);
 
   dispatch({ type: 'FETCH_CURRENCY', currencies });
 };
@@ -48,22 +46,18 @@ export const addExpense = (expenseData) => async (dispatch) => {
 
   const exchangeRates = {};
 
-  /*
-      !!!!!!!!!!!!!!!!!!!!!!!!!! IMPORTANTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      No README.md tópico 7 pede que "Remova das informações trazidas pela API a opção 'USDT' (Dólar Turismo).", contudo ao realizar os testes locais, observei que caso eu não mantenha o dólar turismo, o teste falha
-      !!!!!!!!!!!!!!!!!!!!!!!!!! IMPORTANTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      */
-
-  for (const [key, value] of Object.entries(data)) {
-    if (/* key !== 'USDT' && */ key !== 'DOGE') {
+  Object.entries(data)
+    .filter((currency) => (currency[0] !== 'DOGE'))
+    .forEach((currency) => {
       Object.assign(exchangeRates, {
-        [`${key}`]: {
-          ...value,
-          name: value.name.split('/')[0],
+        [`${currency[0]}`]: {
+          ...currency[1],
+          name: currency[1].name.split('/')[0],
         },
       });
-    }
-  }
+    });
+
+  console.log(exchangeRates);
 
   const expense = { ...expenseData, exchangeRates };
 

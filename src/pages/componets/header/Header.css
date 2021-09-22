@@ -1,6 +1,6 @@
 .wallet_header {
   align-items: center;
-  background: linear-gradient(0deg, rgba(2, 0, 36, 1) 1%, rgba(77, 77, 77, 1) 6%, rgb(221, 221, 221) 8%);
+  background: linear-gradient(0deg, #020024 1%, #4d4d4d 6%, #ddd 8%);
   background-color: rgb(197, 197, 197);
   border-bottom: 1px solid black;
   display: flex;
@@ -20,6 +20,6 @@
   margin-right: 15px;
 }
 
-h2.email_header {
+.wallet_header .email_header {
   margin-right: 60px;
 }

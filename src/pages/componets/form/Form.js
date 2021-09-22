@@ -8,12 +8,13 @@ function Form(props) {
     isEdit,
     editRow,
     submitExpensesHandler,
+    moedas,
     valueRef,
     descriptionRef,
-    moedas,
     currencyRef,
     paymentMethodRef,
-    tagRef } = props;
+    tagRef,
+  } = props;
 
   return (
     <form
@@ -27,7 +28,7 @@ function Form(props) {
           id="value-input"
           data-testid="value-input"
           name="value-input"
-          ref={ valueRef }
+          ref={ valueRef() }
           placeholder="0"
           min="0"
           required
@@ -41,7 +42,7 @@ function Form(props) {
           id="description-input"
           data-testid="description-input"
           name="description"
-          ref={ descriptionRef }
+          ref={ descriptionRef() }
           required
           className="wallet_form-input"
         />
@@ -53,7 +54,7 @@ function Form(props) {
           id="currency-input"
           data-testid="currency-input"
           defaultValue="USD"
-          ref={ currencyRef }
+          ref={ currencyRef() }
           className="wallet_form-input"
         >
           {moedas.map((moeda) => (
@@ -70,7 +71,7 @@ function Form(props) {
           id="method-input"
           data-testid="method-input"
           defaultValue="Dinheiro"
-          ref={ paymentMethodRef }
+          ref={ paymentMethodRef() }
           className="wallet_form-input"
         >
           <option value="Dinheiro">Dinheiro</option>
@@ -85,7 +86,7 @@ function Form(props) {
           id="tag-input"
           data-testid="tag-input"
           defaultValue="Alimentação"
-          ref={ tagRef }
+          ref={ tagRef() }
           className="wallet_form-input"
         >
           <option value="Alimentação">Alimentação</option>
@@ -113,7 +114,12 @@ Form.propTypes = {
   isEdit: PropTypes.bool.isRequired,
   editRow: PropTypes.func.isRequired,
   submitExpensesHandler: PropTypes.func.isRequired,
-  moedas: PropTypes.arrayOf(PropTypes.string),
+  moedas: PropTypes.arrayOf(PropTypes.string).isRequired,
+  valueRef: PropTypes.func.isRequired,
+  descriptionRef: PropTypes.func.isRequired,
+  currencyRef: PropTypes.func.isRequired,
+  paymentMethodRef: PropTypes.func.isRequired,
+  tagRef: PropTypes.func.isRequired,
 };
 
 export default Form;

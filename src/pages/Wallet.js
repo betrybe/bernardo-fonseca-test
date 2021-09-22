@@ -1,7 +1,8 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import Header from "./componets/header/Header";
+import Header from './componets/header/Header';
 import Form from './componets/form/Form';
 import Table from './componets/table/Table';
 import Spinner from './componets/UI/spinner/Spinner';
@@ -11,56 +12,90 @@ import {
   addExpense,
   deleteExpense,
   editExpense,
-} from "../actions/index";
+} from '../actions/index';
 
 import './Wallet.css';
 
 class Wallet extends React.Component {
-  state = {
-    isEdit: false,
-    id: "",
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isEdit: false,
+      id: '',
+    };
 
-  valueRef = React.createRef();
-  descriptionRef = React.createRef();
-  currencyRef = React.createRef();
-  paymentMethodRef = React.createRef();
-  tagRef = React.createRef();
+    this.valueRef = React.createRef();
+    this.descriptionRef = React.createRef();
+    this.currencyRef = React.createRef();
+    this.paymentMethodRef = React.createRef();
+    this.tagRef = React.createRef();
 
-  componentDidMount() {
-    this.props.fetchCurrencyData();
+    this.editRow = this.editRow.bind(this);
+    this.submitExpensesHandler = this.submitExpensesHandler.bind(this);
+    this.isEdit = this.isEdit.bind(this);
+    this.deleteRow = this.deleteRow.bind(this);
   }
 
-  showExpenses = (despesas, currency = "BRL") => {
-    const despesaTotal = despesas.reduce((total, despesa) => {
-      return (
-        total +
-        Number(despesa.value) *
-          Number(despesa.exchangeRates[`${despesa.currency}`].ask)
-      );
-    }, 0);
+  componentDidMount() {
+    const { fetchCurrencyData: fetchCurrencyDataHandler } = this.props;
+    fetchCurrencyDataHandler();
+  }
 
-    return despesaTotal.toLocaleString("en-us", {
-      style: "currency",
-      currency: currency,
+  showExpenses(despesas, currency = 'BRL') {
+    const despesaTotal = despesas.reduce((total, despesa) => (
+      total
+        + Number(despesa.value)
+          * Number(despesa.exchangeRates[`${despesa.currency}`].ask)
+    ), 0);
+
+    return despesaTotal.toLocaleString('en-us', {
+      style: 'currency',
+      currency,
     });
-  };
+  }
 
-  deleteRow = (id) => {
+  deleteRow(id) {
     this.setState({
-      isEdit: false
+      isEdit: false,
     });
-    this.props.deleteExpense(id);
-  };
 
-  isEdit = (id) => {
+    const { deleteExpense: deleteExpenseHandler } = this.props;
+    deleteExpenseHandler(id);
+  }
+
+  isEdit(id) {
     this.setState({
-        isEdit: true,
-        id: id,
-      });
-  };
+      isEdit: true,
+      id,
+    });
+  }
 
-  editRow = (event) => {
+  editRow(event) {
+    event.preventDefault();
+
+    const { id } = this.state;
+
+    const expenseData = {
+      value: this.valueRef.current.value,
+      description: this.descriptionRef.current.value,
+      currency: this.currencyRef.current.value,
+      method: this.paymentMethodRef.current.value,
+      tag: this.tagRef.current.value,
+      id,
+    };
+
+    this.setState({
+      isEdit: false,
+    });
+
+    const { editExpense: editExpenseHandler } = this.props;
+    editExpenseHandler(expenseData);
+
+    this.valueRef.current.value = '';
+    this.descriptionRef.current.value = '';
+  }
+
+  submitExpensesHandler(event) {
     event.preventDefault();
 
     const expenseData = {
@@ -69,79 +104,78 @@ class Wallet extends React.Component {
       currency: this.currencyRef.current.value,
       method: this.paymentMethodRef.current.value,
       tag: this.tagRef.current.value,
-      id: this.state.id,
     };
 
-    this.setState({
-      isEdit: false
-    })
+    const { addExpense: addExpenseHandler } = this.props;
+    addExpenseHandler(expenseData);
 
-    this.props.editExpense(expenseData);
-  };
-
-  submitExpensesHandler = (event) => {
-    event.preventDefault();
-
-    const expenseData = {
-      value: this.valueRef.current.value,
-      description: this.descriptionRef.current.value,
-      currency: this.currencyRef.current.value,
-      method: this.paymentMethodRef.current.value,
-      tag: this.tagRef.current.value,
-    };
-
-    this.props.addExpense(expenseData);
-
-    this.valueRef.current.value = "";
-    this.descriptionRef.current.value = "";
-  };
+    this.valueRef.current.value = '';
+    this.descriptionRef.current.value = '';
+  }
 
   render() {
-    const { email, despesas, moedas, isFetching, currencyToExchange } =
-      this.props;
+    const { email, despesas, moedas, isFetching, currencyToExchange } = this.props;
+
+    const { isEdit } = this.state;
 
     return (
       <div className="wallet_page">
         {isFetching ? (
           <Spinner />
         ) : (
-          ""
+          ''
         )}
-       <Header email={email} currencyToExchange={currencyToExchange} totalExpenses={()=> this.showExpenses(despesas)}/>
-        <Form isEdit={this.state.isEdit} editRow={this.editRow} submitExpensesHandler={this.submitExpensesHandler}
-        valueRef={this.valueRef}
-        descriptionRef={this.descriptionRef}
-        moedas={moedas}
-        currencyRef={this.currencyRef}
-        paymentMethodRef={this.paymentMethodRef}
-        tagRef={this.tagRef}
+        <Header
+          email={ email }
+          currencyToExchange={ currencyToExchange }
+          totalExpenses={ () => this.showExpenses(despesas) }
         />
-        <Table despesas={despesas}
-        isEdit={this.isEdit} 
-        deleteRow={this.deleteRow}
+        <Form
+          isEdit={ isEdit }
+          editRow={ this.editRow }
+          submitExpensesHandler={ this.submitExpensesHandler }
+          moedas={ moedas }
+          valueRef={ () => this.valueRef }
+          descriptionRef={ () => this.descriptionRef }
+          currencyRef={ () => this.currencyRef }
+          paymentMethodRef={ () => this.paymentMethodRef }
+          tagRef={ () => this.tagRef }
+        />
+        <Table
+          despesas={ despesas }
+          isEdit={ this.isEdit }
+          deleteRow={ this.deleteRow }
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    email: state.user.email,
-    despesas: state.wallet.expenses,
-    moedas: state.wallet.currencies,
-    isFetching: state.wallet.isFetching,
-    currencyToExchange: state.wallet.currencyToExchange,
-  };
+Wallet.propTypes = {
+  email: PropTypes.string.isRequired,
+  despesas: PropTypes.arrayOf(PropTypes.object).isRequired,
+  moedas: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  currencyToExchange: PropTypes.string.isRequired,
+  fetchCurrencyData: PropTypes.func.isRequired,
+  addExpense: PropTypes.func.isRequired,
+  deleteExpense: PropTypes.func.isRequired,
+  editExpense: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchCurrencyData: () => dispatch(fetchCurrencyData()),
-    addExpense: (expenseData) => dispatch(addExpense(expenseData)),
-    deleteExpense: (id) => dispatch(deleteExpense(id)),
-    editExpense: (expenseData) => dispatch(editExpense(expenseData)),
-  };
-};
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+  despesas: state.wallet.expenses,
+  moedas: state.wallet.currencies,
+  isFetching: state.wallet.isFetching,
+  currencyToExchange: state.wallet.currencyToExchange,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchCurrencyData: () => dispatch(fetchCurrencyData()),
+  addExpense: (expenseData) => dispatch(addExpense(expenseData)),
+  deleteExpense: (id) => dispatch(deleteExpense(id)),
+  editExpense: (expenseData) => dispatch(editExpense(expenseData)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

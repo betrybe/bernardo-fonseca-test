@@ -30,13 +30,13 @@
   border-radius: 4px;
   color: white;
   font-size: 0.9rem;
-  font-weight: bold;
+  font-weight: 600;
   height: 10%;
   width: 70%;
 }
 
 .form_page_login button:hover {
-  background-color: #000;
+  background-color: black;
   color: #25a570;
 }
 
