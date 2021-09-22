@@ -57,8 +57,6 @@ export const addExpense = (expenseData) => async (dispatch) => {
       });
     });
 
-  console.log(exchangeRates);
-
   const expense = { ...expenseData, exchangeRates };
 
   dispatch({ type: 'ADD_EXPENSE', expense });
