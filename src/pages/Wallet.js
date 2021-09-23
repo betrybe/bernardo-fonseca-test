@@ -44,8 +44,8 @@ class Wallet extends React.Component {
   showExpenses(despesas, currency = 'BRL') {
     const despesaTotal = despesas.reduce((total, despesa) => (
       total
-        + Number(despesa.value)
-          * Number(despesa.exchangeRates[`${despesa.currency}`].ask)
+      + Number(despesa.value)
+      * Number(despesa.exchangeRates[`${despesa.currency}`].ask)
     ), 0);
 
     return despesaTotal.toLocaleString('en-us', {
@@ -122,9 +122,7 @@ class Wallet extends React.Component {
       <div className="wallet_page">
         {isFetching ? (
           <Spinner />
-        ) : (
-          ''
-        )}
+        ) : ''}
         <Header
           email={ email }
           currencyToExchange={ currencyToExchange }

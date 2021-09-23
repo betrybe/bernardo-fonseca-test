@@ -60,3 +60,22 @@
   font-weight: 500;
   height: 25px;
 }
+
+@media ( max-width : 780px ) {
+
+  .wallet_table thead {
+    height: auto;
+  }
+
+  .wallet_table thead tr th {
+    font-size: 0.8rem;
+  }
+
+  .wallet_table tbody {
+    word-wrap: break-word;
+  }
+
+  .wallet_table tbody tr td {
+    font-size: 0.8rem;
+  }
+}

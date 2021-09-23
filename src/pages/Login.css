@@ -14,7 +14,7 @@
   flex-direction: column;
   height: 50%;
   justify-content: center;
-  width: 35%;
+  width: 45%;
 }
 
 .input_login {
@@ -44,4 +44,11 @@
   background-color: #b7b9b9;
   color: #e4e4e4;
   cursor: not-allowed;
+}
+
+@media ( max-width : 1000px ) {
+
+  .login_form {
+    width: 80%;
+  }
 }

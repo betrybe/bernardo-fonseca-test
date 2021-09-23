@@ -74,4 +74,4 @@ Table.propTypes = {
   deleteRow: PropTypes.func.isRequired,
 };
 
-export default Table;
+export default React.memo(Table);

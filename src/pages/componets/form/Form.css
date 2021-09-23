@@ -81,3 +81,24 @@
   margin-left: 4px;
   width: 9rem;
 }
+
+@media ( max-width : 1215px ) {
+
+  .wallet_form-input {
+    font-size: 0.9rem;
+    margin-left: 3px;
+  }
+}
+
+@media ( max-width : 1060px ) {
+
+  .wallet_form {
+    flex-wrap: wrap;
+    height: auto;
+  }
+
+  .wallet_form-edit {
+    flex-wrap: wrap;
+    height: auto;
+  }
+}
