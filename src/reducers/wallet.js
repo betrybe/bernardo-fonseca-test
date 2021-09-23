@@ -1,4 +1,4 @@
-import { alocador, formatArray } from './helpers/helpers';
+// import { alocador, formatArray } from './helpers/helpers';
 
 const initialState = {
   isFetching: false,
@@ -17,11 +17,10 @@ const walletReducer = (state = initialState, action) => {
   case 'ADD_EXPENSE':
     return {
       ...state,
-      expenses: formatArray(state.expenses
-        .concat({
-          ...action.expense,
-          id: alocador(state.expenses, state.expenses.length),
-        })),
+      expenses: state.expenses.concat({
+        ...action.expense,
+        id: state.expenses.length,
+      }),
     };
   case 'DELETE_EXPENSE':
     return {
